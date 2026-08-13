@@ -1,6 +1,7 @@
 # Software Hub — production container image
 # Serves static assets via Nginx on port 80.
-FROM node:26.3.0-alpine
+# Pinned to a specific version so rebuilds are reproducible.
+FROM nginx:latest
 
 # Copy custom nginx config that:
 #   - Sets correct MIME types for .apk/.dmg/.exe/.svg/.yaml
