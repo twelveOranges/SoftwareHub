@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Icon downloader for soft-ware-hub
+ * Icon downloader for soft-warehub
  * -------------------------------------------------
  * Downloads app icons from:
  *   - iTunes Search API (Apple / Mac App Store) → most Mac + iOS apps

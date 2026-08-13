@@ -20,7 +20,7 @@
 ## Project Structure
 
 ```
-soft-ware-hub/
+software-hub/
 ├── index.html            # Entry HTML
 ├── css/style.css         # 7 theme tokens + all layouts
 ├── js/
@@ -88,7 +88,7 @@ docker compose build --no-cache && docker compose up -d   # 代码改变后重�
 1. 把整个目录扔进 `Web Station` 的 `web` 目录
 2. 软件安装包放到 `downloads/mac`、`downloads/win`、`downloads/android` 下
 3. 软件图标放到 `icons/{platform}/`
-4. 浏览器访问 `http://nas-ip/soft-ware-hub/`
+4. 浏览器访问 `http://nas-ip/software-hub/`
 
 ### 自己的 Nginx
 参考本仓库的 [`nginx.conf`](./nginx.conf)，直接拷到已有 nginx 的 `conf.d/` 即可。
