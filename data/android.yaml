@@ -1,0 +1,103 @@
+# Android software catalog. See data/mac.yaml for schema documentation.
+# NOTE: File sizes and modification dates are auto-detected at runtime.
+
+- name: 抖音
+  icon: icons/android/douyin.png
+  desc: 短视频娱乐平台
+  category: video
+  versions:
+    - version: "29.5"
+      downloadUrl: /downloads/android/douyin-29.5.apk
+    - version: "28.0"
+      downloadUrl: /downloads/android/douyin-28.0.apk
+
+- name: 小红书
+  icon: icons/android/xhs.png
+  desc: 生活方式分享
+  category: chat
+  versions:
+    - version: "8.30"
+      downloadUrl: /downloads/android/xhs.apk
+
+- name: 支付宝
+  icon: icons/android/alipay.png
+  desc: 移动支付
+  category: life
+  essential: true
+  versions:
+    - version: "10.6"
+      downloadUrl: /downloads/android/alipay.apk
+
+- name: 微信 (安卓)
+  icon: icons/android/wechat.png
+  desc: 移动端微信
+  category: chat
+  essential: true
+  versions:
+    - version: "8.0"
+      downloadUrl: /downloads/android/wechat.apk
+
+- name: 高德地图
+  icon: icons/android/amap.png
+  desc: 地图导航
+  category: life
+  essential: true
+  versions:
+    - version: "13.10"
+      downloadUrl: /downloads/android/amap.apk
+
+- name: 网易云音乐
+  icon: icons/android/netease-music.png
+  desc: 音乐社区
+  category: video
+  versions:
+    - version: "9.1"
+      downloadUrl: /downloads/android/netease-music.apk
+
+- name: 哔哩哔哩
+  icon: icons/android/bilibili.png
+  desc: 视频弹幕社区
+  category: video
+  versions:
+    - version: "7.60"
+      downloadUrl: /downloads/android/bilibili.apk
+
+- name: 淘宝
+  icon: icons/android/taobao.png
+  desc: 购物平台
+  category: life
+  versions:
+    - version: "10.28"
+      downloadUrl: /downloads/android/taobao.apk
+
+- name: 京东
+  icon: icons/android/jd.png
+  desc: 综合电商
+  category: life
+  versions:
+    - version: "13.0"
+      downloadUrl: /downloads/android/jd.apk
+
+- name: 美团
+  icon: icons/android/meituan.png
+  desc: 本地生活
+  category: life
+  versions:
+    - version: "12.20"
+      downloadUrl: /downloads/android/meituan.apk
+
+- name: 钉钉
+  icon: icons/android/dingtalk.png
+  desc: 企业协作办公
+  category: office
+  versions:
+    - version: "7.0"
+      downloadUrl: /downloads/android/dingtalk.apk
+
+- name: 夸克浏览器
+  icon: icons/android/quark.png
+  desc: 移动浏览器
+  category: browser
+  versions:
+    - version: "6.8"
+      downloadUrl: /downloads/android/quark.apk

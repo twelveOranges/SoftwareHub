@@ -1,0 +1,258 @@
+# Mac software catalog.
+# Schema per entry:
+#   name         : Display name (required)
+#   icon         : Icon path or emoji (required)
+#   desc         : Short one-line description
+#   category     : design|dev|office|video|system|browser|chat|life|game
+#   essential    : true if this belongs to "装机必备"
+#   note         : Personal note (serial numbers, activation tips, etc.)
+#   versions     : List; first entry is the recommended version
+#     - version      : Version string (e.g. "2024", "1.85")
+#       downloadUrl  : Path to installer file
+#       note         : (optional) version-specific note
+#   attachments  : (optional) extras bundled with the app
+#     - name         : Attachment name
+#       desc         : (optional) description
+#       downloadUrl  : Path to attachment file
+#       installPath  : (optional) suggested install location
+#
+# NOTE: File sizes and modification dates are auto-detected at runtime
+#       from the file server (Content-Length + Last-Modified headers).
+#       Do NOT hand-maintain size/releaseDate here.
+
+- name: Photoshop
+  icon: icons/mac/photoshop.png
+  desc: 专业图像处理软件
+  category: design
+  essential: true
+  note: "序列号: 见 1Password「Adobe」条目"
+  versions:
+    - version: "2024"
+      downloadUrl: /downloads/mac/photoshop-2024.dmg
+    - version: "2023"
+      downloadUrl: /downloads/mac/photoshop-2023.dmg
+      note: 兼容旧插件
+    - version: "2022"
+      downloadUrl: /downloads/mac/photoshop-2022.dmg
+  attachments:
+    - name: 常用滤镜包
+      desc: Nik Collection + Camera Raw 预设
+      downloadUrl: /downloads/mac/extras/ps-filters.zip
+      installPath: ~/Library/Application Support/Adobe/Plug-ins
+    - name: 字体包
+      desc: 设计常用中英文字体 200+
+      downloadUrl: /downloads/mac/extras/ps-fonts.zip
+      installPath: ~/Library/Fonts
+
+- name: Illustrator
+  icon: icons/mac/illustrator.png
+  desc: 矢量图形设计与插画
+  category: design
+  versions:
+    - version: "2024"
+      downloadUrl: /downloads/mac/illustrator-2024.dmg
+
+- name: Sketch
+  icon: icons/mac/sketch.png
+  desc: Mac UI 设计工具
+  category: design
+  versions:
+    - version: "99.0"
+      downloadUrl: /downloads/mac/sketch.dmg
+
+- name: VS Code
+  icon: icons/mac/vscode.png
+  desc: 开源代码编辑器
+  category: dev
+  essential: true
+  note: 配置文件在 ~/dotfiles/vscode
+  versions:
+    - version: "1.85"
+      downloadUrl: /downloads/mac/vscode-1.85.dmg
+    - version: "1.80"
+      downloadUrl: /downloads/mac/vscode-1.80.dmg
+  attachments:
+    - name: 常用插件包
+      desc: Prettier / ESLint / GitLens / Copilot 等 30+
+      downloadUrl: /downloads/mac/extras/vscode-extensions.zip
+      installPath: ~/.vscode/extensions
+    - name: settings.json
+      desc: 个人编辑器配置
+      downloadUrl: /downloads/mac/extras/vscode-settings.json
+      installPath: ~/Library/Application Support/Code/User/
+    - name: keybindings.json
+      desc: 快捷键自定义
+      downloadUrl: /downloads/mac/extras/vscode-keybindings.json
+      installPath: ~/Library/Application Support/Code/User/
+
+- name: IntelliJ IDEA
+  icon: icons/mac/idea.png
+  desc: Java 开发首选 IDE
+  category: dev
+  essential: true
+  note: 激活码见 password.md
+  versions:
+    - version: "2024.1"
+      downloadUrl: /downloads/mac/idea-2024.1.dmg
+    - version: "2023.3"
+      downloadUrl: /downloads/mac/idea-2023.3.dmg
+
+- name: iTerm2
+  icon: icons/mac/iterm2.png
+  desc: Mac 终端替代品
+  category: dev
+  essential: true
+  versions:
+    - version: "3.5"
+      downloadUrl: /downloads/mac/iterm2.zip
+
+- name: Docker
+  icon: icons/mac/docker.png
+  desc: 容器化开发与部署
+  category: dev
+  versions:
+    - version: "4.28"
+      downloadUrl: /downloads/mac/docker.dmg
+
+- name: Microsoft Office
+  icon: icons/mac/office.png
+  desc: 微软办公套件
+  category: office
+  essential: true
+  note: "KMS 激活: kms.example.com"
+  versions:
+    - version: "2024"
+      downloadUrl: /downloads/mac/office-2024.pkg
+    - version: "2021"
+      downloadUrl: /downloads/mac/office-2021.pkg
+
+- name: Notion
+  icon: icons/mac/notion.png
+  desc: 笔记与知识管理
+  category: office
+  versions:
+    - version: "3.0"
+      downloadUrl: /downloads/mac/notion.dmg
+
+- name: Obsidian
+  icon: icons/mac/obsidian.svg
+  desc: 本地优先的双链笔记
+  category: office
+  essential: true
+  note: "同步库: NAS/notes"
+  versions:
+    - version: "1.5"
+      downloadUrl: /downloads/mac/obsidian.dmg
+  attachments:
+    - name: 主题包
+      desc: Minimal / Things / Blue Topaz 等
+      downloadUrl: /downloads/mac/extras/obsidian-themes.zip
+      installPath: .obsidian/themes
+    - name: 社区插件集
+      desc: Dataview / Templater / Excalidraw 等
+      downloadUrl: /downloads/mac/extras/obsidian-plugins.zip
+      installPath: .obsidian/plugins
+
+- name: Final Cut Pro
+  icon: icons/mac/fcpx.png
+  desc: 苹果专业视频剪辑
+  category: video
+  versions:
+    - version: "10.7"
+      downloadUrl: /downloads/mac/fcpx.dmg
+
+- name: IINA
+  icon: icons/mac/iina.png
+  desc: Mac 视频播放器
+  category: video
+  essential: true
+  versions:
+    - version: "1.3"
+      downloadUrl: /downloads/mac/iina.dmg
+
+- name: CleanMyMac X
+  icon: icons/mac/cleanmymac.png
+  desc: Mac 系统清理
+  category: system
+  versions:
+    - version: "4.15"
+      downloadUrl: /downloads/mac/cleanmymac.dmg
+
+- name: Alfred
+  icon: icons/mac/alfred.png
+  desc: Mac 效率启动器
+  category: system
+  essential: true
+  note: Powerpack license 已购
+  versions:
+    - version: "5.5"
+      downloadUrl: /downloads/mac/alfred.dmg
+
+- name: Raycast
+  icon: icons/mac/raycast.png
+  desc: 新一代 Mac 启动器
+  category: system
+  essential: true
+  versions:
+    - version: "1.70"
+      downloadUrl: /downloads/mac/raycast.dmg
+
+- name: Chrome
+  icon: icons/mac/chrome.svg
+  desc: 谷歌浏览器
+  category: browser
+  essential: true
+  versions:
+    - version: "125.0"
+      downloadUrl: /downloads/mac/chrome-125.dmg
+    - version: "120.0"
+      downloadUrl: /downloads/mac/chrome-120.dmg
+
+- name: Arc
+  icon: icons/mac/arc.png
+  desc: 重新定义浏览器体验
+  category: browser
+  versions:
+    - version: "1.40"
+      downloadUrl: /downloads/mac/arc.dmg
+
+- name: 微信
+  icon: icons/mac/wechat.png
+  desc: 国民级社交通讯
+  category: chat
+  essential: true
+  versions:
+    - version: "3.8"
+      downloadUrl: /downloads/mac/wechat.dmg
+
+- name: QQ
+  icon: icons/mac/qq.png
+  desc: 腾讯即时通讯
+  category: chat
+  versions:
+    - version: "6.9"
+      downloadUrl: /downloads/mac/qq.dmg
+
+- name: Telegram
+  icon: icons/mac/telegram.png
+  desc: 加密即时通讯
+  category: chat
+  versions:
+    - version: "10.10"
+      downloadUrl: /downloads/mac/telegram.dmg
+
+- name: Steam
+  icon: icons/mac/steam.png
+  desc: PC 游戏平台
+  category: game
+  versions:
+    - version: "3.6"
+      downloadUrl: /downloads/mac/steam.dmg
+
+- name: Minecraft
+  icon: icons/mac/minecraft.png
+  desc: 沙盒游戏
+  category: game
+  versions:
+    - version: "1.20"
+      downloadUrl: /downloads/mac/minecraft.dmg

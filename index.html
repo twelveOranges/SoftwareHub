@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的软件库</title>
+    <link rel="preload" href="fonts/dosis-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="fonts/dosis-latin-ext.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        (function () {
+            var t = localStorage.getItem('theme') || 'auto';
+            var applied = t;
+            if (t === 'auto') {
+                applied = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            document.documentElement.setAttribute('data-theme', applied);
+            document.documentElement.setAttribute('data-theme-pref', t);
+            var v = localStorage.getItem('view') || 'grid';
+            document.documentElement.setAttribute('data-view', v);
+        })();
+    </script>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <header class="header">
+        <div class="container header-inner">
+            <a href="/" class="logo">
+                <span class="logo-text">我的软件库</span>
+            </a>
+            <nav class="nav">
+                <a href="#platform=mac" class="nav-item" data-platform="mac">Mac</a>
+                <a href="#platform=win" class="nav-item" data-platform="win">Windows</a>
+                <a href="#platform=android" class="nav-item" data-platform="android">Android</a>
+            </nav>
+            <div class="header-actions">
+                <div class="quick-search">
+                    <input type="text" id="searchInput" placeholder="搜索..." autocomplete="off">
+                    <span class="icon quick-search-icon" data-icon="search"></span>
+                </div>
+                <button class="btn-icon" id="viewToggleBtn" title="切换视图">
+                    <span class="icon" id="viewIcon" data-icon="list"></span>
+                </button>
+                <div class="theme-switcher">
+                    <button class="btn-icon" id="themeBtn" title="切换主题">
+                        <span class="icon" id="themeIcon" data-icon="shirt"></span>
+                    </button>
+                    <div class="theme-menu" id="themeMenu">
+                        <button class="theme-swatch swatch-light"   data-theme="light"  title="明亮"></button>
+                        <button class="theme-swatch swatch-retro"   data-theme="retro"  title="复古"></button>
+                        <button class="theme-swatch swatch-eye"     data-theme="eye"    title="护眼"></button>
+                        <button class="theme-swatch swatch-sea"     data-theme="sea"    title="海天"></button>
+                        <button class="theme-swatch swatch-deep"    data-theme="deep"   title="深邃"></button>
+                        <button class="theme-swatch swatch-dark"    data-theme="dark"   title="暗黑"></button>
+                        <button class="theme-swatch swatch-auto"    data-theme="auto"   title="自动"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h3 class="sidebar-title">分类</h3>
+            <ul class="category-list" id="categoryList">
+                <li class="category-item active" data-category="all">
+                    <span class="icon cat-icon" data-icon="package"></span>
+                    <span>全部</span>
+                    <span class="cat-count" data-count-for="all"></span>
+                </li>
+                <li class="category-item cat-essential" data-category="essential">
+                    <span class="icon cat-icon" data-icon="star"></span>
+                    <span>装机必备</span>
+                    <span class="cat-count" data-count-for="essential"></span>
+                </li>
+                <li class="category-divider" aria-hidden="true"></li>
+                <li class="category-item" data-category="design">
+                    <span class="icon cat-icon" data-icon="brush"></span>
+                    <span>设计创意</span>
+                    <span class="cat-count" data-count-for="design"></span>
+                </li>
+                <li class="category-item" data-category="dev">
+                    <span class="icon cat-icon" data-icon="code"></span>
+                    <span>开发工具</span>
+                    <span class="cat-count" data-count-for="dev"></span>
+                </li>
+                <li class="category-item" data-category="office">
+                    <span class="icon cat-icon" data-icon="briefcase"></span>
+                    <span>办公</span>
+                    <span class="cat-count" data-count-for="office"></span>
+                </li>
+                <li class="category-item" data-category="video">
+                    <span class="icon cat-icon" data-icon="film"></span>
+                    <span>影音</span>
+                    <span class="cat-count" data-count-for="video"></span>
+                </li>
+                <li class="category-item" data-category="system">
+                    <span class="icon cat-icon" data-icon="settings"></span>
+                    <span>系统工具</span>
+                    <span class="cat-count" data-count-for="system"></span>
+                </li>
+                <li class="category-item" data-category="browser">
+                    <span class="icon cat-icon" data-icon="globe"></span>
+                    <span>浏览器</span>
+                    <span class="cat-count" data-count-for="browser"></span>
+                </li>
+                <li class="category-item" data-category="chat">
+                    <span class="icon cat-icon" data-icon="chat"></span>
+                    <span>社交</span>
+                    <span class="cat-count" data-count-for="chat"></span>
+                </li>
+                <li class="category-item" data-category="life">
+                    <span class="icon cat-icon" data-icon="cart"></span>
+                    <span>生活服务</span>
+                    <span class="cat-count" data-count-for="life"></span>
+                </li>
+                <li class="category-item" data-category="game">
+                    <span class="icon cat-icon" data-icon="gamepad"></span>
+                    <span>游戏</span>
+                    <span class="cat-count" data-count-for="game"></span>
+                </li>
+            </ul>
+
+            <!-- Essential stats card -->
+            <div class="stats-card">
+                <div class="stats-title">装机必备数量</div>
+                <div class="stats-row" data-platform-stat="mac">
+                    <span class="stats-label">Mac</span>
+                    <span class="stats-value" id="statEssentialMac">0</span>
+                </div>
+                <div class="stats-row" data-platform-stat="win">
+                    <span class="stats-label">Windows</span>
+                    <span class="stats-value" id="statEssentialWin">0</span>
+                </div>
+                <div class="stats-row" data-platform-stat="android">
+                    <span class="stats-label">Android</span>
+                    <span class="stats-value" id="statEssentialAndroid">0</span>
+                </div>
+                <button class="stats-action" id="batchDownloadBtn" title="一键下载当前平台装机必备">
+                    <span class="icon" data-icon="downloadAll"></span>
+                    <span>一键下载装机必备</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Content Area -->
+        <section class="content">
+            <div class="content-header">
+                <div class="content-title-wrap">
+                    <h2 id="contentTitle">Mac</h2>
+                    <span class="result-count" id="resultCount"></span>
+                </div>
+                <div class="sort-bar">
+                    <button class="sort-btn active" data-sort="name">名称</button>
+                    <button class="sort-btn" data-sort="used">最常用</button>
+                </div>
+            </div>
+
+            <div class="app-grid" id="appGrid"></div>
+
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <span class="icon empty-icon" data-icon="empty"></span>
+                <p>没有匹配的软件</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Detail Modal -->
+    <div class="modal-mask" id="modalMask">
+        <div class="modal" id="detailModal">
+            <button class="modal-close" id="modalClose">
+                <span class="icon" data-icon="x"></span>
+            </button>
+            <div class="modal-header">
+                <div class="modal-icon" id="modalIcon"></div>
+                <div class="modal-title-wrap">
+                    <h3 id="modalTitle">软件名</h3>
+                    <p id="modalDesc" class="modal-desc"></p>
+                    <div class="modal-tags" id="modalTags"></div>
+                </div>
+            </div>
+
+            <div class="modal-section">
+                <div class="modal-section-title">
+                    <span>版本历史</span>
+                    <span class="section-hint" id="modalVersionHint"></span>
+                </div>
+                <div class="version-list" id="modalVersionList"></div>
+            </div>
+
+            <div class="modal-section" id="modalAttachmentsSection" style="display:none;">
+                <div class="modal-section-title">
+                    <span>附件</span>
+                    <span class="section-hint" id="modalAttachmentsHint"></span>
+                </div>
+                <div class="attachment-list" id="modalAttachmentList"></div>
+            </div>
+
+            <div class="modal-section">
+                <div class="modal-section-title">备注</div>
+                <div class="modal-note" id="modalNote">-</div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-star" id="modalStarBtn">
+                    <span class="icon" data-icon="star"></span>
+                    <span>加入装机必备</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Attachment picker modal (for batch download) -->
+    <div class="modal-mask" id="attachPickerMask">
+        <div class="modal attach-picker" id="attachPicker">
+            <button class="modal-close" id="attachPickerClose">
+                <span class="icon" data-icon="x"></span>
+            </button>
+            <div class="attach-picker-header">
+                <h3>是否下载附件？</h3>
+                <p class="attach-picker-desc" id="attachPickerDesc">检测到以下装机必备软件带有附件，勾选需要一起下载的项目：</p>
+            </div>
+            <div class="attach-picker-tree" id="attachPickerTree"></div>
+            <div class="attach-picker-footer">
+                <div class="attach-picker-summary" id="attachPickerSummary">已选 0 项</div>
+                <div class="attach-picker-actions">
+                    <button class="btn-secondary" id="attachPickerSkip">跳过附件</button>
+                    <button class="btn-primary" id="attachPickerConfirm">
+                        <span class="icon" data-icon="download"></span>
+                        <span>下载所选</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Third-party -->
+    <script src="js/icons.js"></script>
+    <script src="js/vendor/js-yaml.min.js"></script>
+
+    <!-- Core: state, DOM refs, utilities -->
+    <script src="js/core/state.js"></script>
+    <script src="js/core/dom.js"></script>
+    <script src="js/core/utils.js"></script>
+
+    <!-- Modules: independent concerns -->
+    <script src="js/modules/catalog.js"></script>
+    <script src="js/modules/filter.js"></script>
+    <script src="js/modules/render.js"></script>
+    <script src="js/modules/modal-detail.js"></script>
+    <script src="js/modules/modal-attach.js"></script>
+    <script src="js/modules/download.js"></script>
+    <script src="js/modules/router.js"></script>
+    <script src="js/modules/theme.js"></script>
+    <script src="js/modules/view.js"></script>
+    <script src="js/modules/events.js"></script>
+    <script src="js/modules/probe.js"></script>
+
+    <!-- Entry point -->
+    <script src="js/main.js"></script>
+</body>
+</html>

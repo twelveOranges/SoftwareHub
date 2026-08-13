@@ -1,0 +1,86 @@
+# Windows software catalog. See data/mac.yaml for schema documentation.
+# NOTE: File sizes and modification dates are auto-detected at runtime.
+
+- name: Figma
+  icon: icons/win/figma.png
+  desc: UI/UX 协作设计
+  category: design
+  versions:
+    - version: "116.0"
+      downloadUrl: /downloads/win/figma.exe
+
+- name: Postman
+  icon: icons/win/postman.svg
+  desc: API 调试与协作平台
+  category: dev
+  versions:
+    - version: "10.20"
+      downloadUrl: /downloads/win/postman.exe
+
+- name: WPS Office
+  icon: icons/win/wps.png
+  desc: 国产免费办公套件
+  category: office
+  essential: true
+  versions:
+    - version: "12.1"
+      downloadUrl: /downloads/win/wps.exe
+
+- name: Premiere Pro
+  icon: icons/win/premiere.png
+  desc: Adobe 视频后期
+  category: video
+  versions:
+    - version: "2024"
+      downloadUrl: /downloads/win/premiere-2024.exe
+
+- name: OBS Studio
+  icon: icons/win/obs.png
+  desc: 开源直播与录屏
+  category: video
+  versions:
+    - version: "30.0"
+      downloadUrl: /downloads/win/obs.exe
+
+- name: PowerToys
+  icon: icons/win/powertoys.png
+  desc: 微软 Windows 增强
+  category: system
+  essential: true
+  versions:
+    - version: "0.79"
+      downloadUrl: /downloads/win/powertoys.exe
+
+- name: Edge
+  icon: icons/win/edge.png
+  desc: 微软 Chromium 浏览器
+  category: browser
+  essential: true
+  versions:
+    - version: "125.0"
+      downloadUrl: /downloads/win/edge.exe
+
+- name: Discord
+  icon: icons/win/discord.png
+  desc: 游戏玩家聚集地
+  category: chat
+  versions:
+    - version: "1.0"
+      downloadUrl: /downloads/win/discord.exe
+
+- name: Epic Games
+  icon: icons/win/epic.svg
+  desc: 游戏发行平台
+  category: game
+  versions:
+    - version: "15.20"
+      downloadUrl: /downloads/win/epic.exe
+
+- name: GTA V
+  icon: icons/win/gta5.png
+  desc: 开放世界动作
+  category: game
+  note: 占空间大，慎装
+  versions:
+    - version: "1.68"
+      downloadUrl: /downloads/win/gta5.iso

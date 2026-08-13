@@ -1,0 +1,26 @@
+# Version control
+.git
+.gitignore
+.DS_Store
+
+# OS / editor
+.vscode
+.idea
+*.swp
+
+# Docs — kept small: no need for scripts inside the image
+scripts/
+*.md
+!README.md
+
+# Local tooling
+node_modules
+package*.json
+
+# Local logs
+*.log
+
+# Docker itself
+Dockerfile
+docker-compose.yml
+.dockerignore

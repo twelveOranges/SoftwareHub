@@ -1,0 +1,18 @@
+# macwk mirror (for reference only, not part of the site)
+macwk-mirror/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Node / tooling
+node_modules/
+*.log
+
+# Local generated reports
+scripts/icon-report.txt
