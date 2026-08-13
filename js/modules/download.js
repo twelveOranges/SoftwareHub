@@ -43,17 +43,24 @@
             a.platform === state.platform && user.isEssential(a));
         if (essentials.length === 0) return;
 
-        // Build the main-program download list (recommended version per app)
+        // Build the main-program download list (recommended version per app).
+        // Skip apps whose recommended file isn't on the server yet (available === false).
         const mainDownloads = [];
+        const skipped = [];
         essentials.forEach(app => {
             const rec = App.recommended(app);
-            if (rec && rec.downloadUrl) {
+            if (rec && rec.downloadUrl && rec.available !== false) {
                 mainDownloads.push({
                     url: rec.downloadUrl,
                     onFire: () => user.bumpUsed(app)
                 });
+            } else if (rec && rec.available === false) {
+                skipped.push(app.name);
             }
         });
+        if (skipped.length > 0) {
+            console.log(`[download] Skipped ${skipped.length} not-yet-uploaded apps: ${skipped.join(", ")}`);
+        }
         if (mainDownloads.length === 0) return;
 
         const appsWithAtts = essentials.filter(a => (a.attachments || []).length > 0);

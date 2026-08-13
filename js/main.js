@@ -22,6 +22,10 @@
             window.APPS = window.APPS || [];
         }
 
+        // Migrate legacy userData keys (bare name → "platform::name").
+        // Must run AFTER catalog is loaded and BEFORE first render.
+        App.user.migrate();
+
         // Wire all event listeners now that data is available
         App.view.apply(App.state.view);   // also triggers first render
         App.router.bind();

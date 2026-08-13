@@ -81,7 +81,8 @@
             const card = target.closest(".app-card, .app-row");
             if (!card) return;
 
-            const app = window.APPS.find(a => a.name === card.dataset.name);
+            const key = card.dataset.key;
+            const app = window.APPS.find(a => `${a.platform}::${a.name}` === key);
             if (!app) return;
 
             // Star toggle

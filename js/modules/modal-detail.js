@@ -77,12 +77,15 @@
         if (!app.versions || app.versions.length === 0) {
             return `<div class="version-empty">此软件暂无可下载的版本</div>`;
         }
-        return app.versions.map((v, idx) => `
-            <div class="version-row${idx === 0 ? " version-recommended" : ""}" data-version="${esc.attr(v.version)}">
+        return app.versions.map((v, idx) => {
+            const missing = v.available === false;
+            return `
+            <div class="version-row${idx === 0 ? " version-recommended" : ""}${missing ? " version-missing" : ""}" data-version="${esc.attr(v.version)}">
                 <div class="version-info">
                     <div class="version-line">
                         <span class="version-tag">v${esc.html(v.version)}</span>
                         ${idx === 0 ? `<span class="version-badge-rec">推荐</span>` : ""}
+                        ${missing ? `<span class="version-badge-missing">未上架</span>` : ""}
                         ${v.note ? `<span class="version-note">${esc.html(v.note)}</span>` : ""}
                     </div>
                     <div class="version-meta">
@@ -91,20 +94,23 @@
                     </div>
                 </div>
                 <div class="version-actions">
-                    ${v.downloadUrl
+                    ${v.downloadUrl && !missing
                         ? `<a href="${esc.attr(v.downloadUrl)}" class="btn-download" data-action="dl-version" data-version="${esc.attr(v.version)}" target="_blank" rel="noopener">${util.icon("download", 14)}<span>下载</span></a>`
-                        : `<span class="btn-download disabled">无链接</span>`}
+                        : `<span class="btn-download disabled">${missing ? "未上架" : "无链接"}</span>`}
                 </div>
             </div>
-        `).join("");
+        `;
+        }).join("");
     }
 
     function renderAttachments(app) {
-        return (app.attachments || []).map(att => `
-            <div class="attachment-row">
+        return (app.attachments || []).map(att => {
+            const missing = att.available === false;
+            return `
+            <div class="attachment-row${missing ? " attachment-missing" : ""}">
                 <div class="attachment-icon">${util.icon("paperclip", 14)}</div>
                 <div class="attachment-info">
-                    <div class="attachment-name">${esc.html(att.name)}</div>
+                    <div class="attachment-name">${esc.html(att.name)}${missing ? ` <span class="attachment-badge-missing">未上架</span>` : ""}</div>
                     ${att.desc ? `<div class="attachment-desc">${esc.html(att.desc)}</div>` : ""}
                     <div class="attachment-meta">
                         <span>${util.icon("boxOpen", 11)} ${esc.html(att.size || "-")}</span>
@@ -112,12 +118,13 @@
                     </div>
                 </div>
                 <div class="attachment-actions">
-                    ${att.downloadUrl
+                    ${att.downloadUrl && !missing
                         ? `<a href="${esc.attr(att.downloadUrl)}" class="btn-download" data-action="dl-attachment" download="${esc.attr(att.downloadUrl.split('/').pop())}">${util.icon("download", 13)}<span>下载</span></a>`
-                        : `<span class="btn-download disabled">无链接</span>`}
+                        : `<span class="btn-download disabled">${missing ? "未上架" : "无链接"}</span>`}
                 </div>
             </div>
-        `).join("");
+        `;
+        }).join("");
     }
 
     // ---------- Event wiring ----------

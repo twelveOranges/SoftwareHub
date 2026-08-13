@@ -41,6 +41,7 @@
 
     // ---------- User data (localStorage) ----------
     const USER_DATA_KEY = "sw-hub-userdata";
+    const MIGRATION_FLAG_KEY = "sw-hub-userdata-migrated-v2";
 
     function load() {
         try { return JSON.parse(localStorage.getItem(USER_DATA_KEY)) || {}; }
@@ -49,26 +50,63 @@
 
     let userData = load();
 
+    // One-shot migration: old records were keyed by bare app name (e.g. "Obsidian"),
+    // which conflates same-named apps across platforms. Rekey them to
+    // "platform::name". If the app exists on multiple platforms, duplicate
+    // the record to each so the user does not lose their stars / usage counts.
+    // This runs once per browser (guarded by MIGRATION_FLAG_KEY).
+    function migrateIfNeeded() {
+        if (localStorage.getItem(MIGRATION_FLAG_KEY) === "1") return;
+        if (!Array.isArray(window.APPS) || window.APPS.length === 0) return; // wait until catalog loaded
+
+        let touched = false;
+        Object.keys(userData).forEach(key => {
+            if (key.includes("::")) return; // already new format
+            const matches = window.APPS.filter(a => a.name === key);
+            if (matches.length === 0) return; // orphan, leave it alone
+            matches.forEach(a => {
+                const newKey = `${a.platform}::${a.name}`;
+                if (!userData[newKey]) {
+                    userData[newKey] = Object.assign({}, userData[key]);
+                    touched = true;
+                }
+            });
+            delete userData[key];
+            touched = true;
+        });
+
+        if (touched) {
+            localStorage.setItem(USER_DATA_KEY, JSON.stringify(userData));
+        }
+        localStorage.setItem(MIGRATION_FLAG_KEY, "1");
+    }
+
+    function keyOf(app) {
+        return `${app.platform}::${app.name}`;
+    }
+
     App.user = {
+        migrate: migrateIfNeeded,
         save() {
             localStorage.setItem(USER_DATA_KEY, JSON.stringify(userData));
         },
-        entry(name) {
-            if (!userData[name]) userData[name] = { usedCount: 0, essential: null };
-            return userData[name];
+        entry(app) {
+            const k = keyOf(app);
+            if (!userData[k]) userData[k] = { usedCount: 0, essential: null };
+            return userData[k];
         },
         isEssential(app) {
-            const u = userData[app.name];
+            const u = userData[keyOf(app)];
             if (u && u.essential !== null && u.essential !== undefined) return u.essential;
             return !!app.essential;
         },
-        usedCount(app) { return userData[app.name]?.usedCount || 0; },
+        usedCount(app) { return userData[keyOf(app)]?.usedCount || 0; },
         bumpUsed(app) {
-            const e = this.entry(app.name);
+            const e = this.entry(app);
             e.usedCount = (e.usedCount || 0) + 1;
         },
         toggleEssential(app) {
-            const e = this.entry(app.name);
+            const e = this.entry(app);
             e.essential = !this.isEssential(app);
         }
     };

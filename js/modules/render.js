@@ -74,8 +74,10 @@
             const vc = (app.versions && app.versions.length) || 0;
             const attCount = (app.attachments && app.attachments.length) || 0;
             const essential = user.isEssential(app);
+            const key = `${app.platform}::${app.name}`;
+            const missing = rec && rec.available === false;
             return `
-            <div class="app-card${essential ? " essential" : ""}" data-name="${esc.attr(app.name)}">
+            <div class="app-card${essential ? " essential" : ""}${missing ? " missing" : ""}" data-key="${esc.attr(key)}">
                 <button class="star-btn" data-action="star" title="${essential ? "从装机必备移除" : "加入装机必备"}">
                     ${util.starIcon(essential)}
                 </button>
@@ -87,6 +89,7 @@
                     ${rec ? `<span class="app-badge">v${esc.html(rec.version)}</span>` : ""}
                     ${vc > 1 ? `<span class="app-badge multi" title="共 ${vc} 个版本">${vc} 版</span>` : ""}
                     ${attCount > 0 ? `<span class="app-badge attach" title="${attCount} 个附件">${util.icon("paperclip", 10)} ${attCount}</span>` : ""}
+                    ${missing ? `<span class="app-badge missing" title="未上架">未上架</span>` : ""}
                 </div>
             </div>`;
         }).join("");
@@ -98,14 +101,16 @@
             const vc = (app.versions && app.versions.length) || 0;
             const attCount = (app.attachments && app.attachments.length) || 0;
             const essential = user.isEssential(app);
+            const key = `${app.platform}::${app.name}`;
+            const missing = rec && rec.available === false;
             return `
-            <div class="app-row${essential ? " essential" : ""}" data-name="${esc.attr(app.name)}">
+            <div class="app-row${essential ? " essential" : ""}${missing ? " missing" : ""}" data-key="${esc.attr(key)}">
                 <button class="star-btn" data-action="star" title="${essential ? "从装机必备移除" : "加入装机必备"}">
                     ${util.starIcon(essential)}
                 </button>
                 <div class="row-icon">${util.renderIcon(app.icon, app.name)}</div>
                 <div class="row-main">
-                    <div class="row-name">${esc.html(app.name)}${vc > 1 ? ` <span class="row-multi">${vc} 版</span>` : ""}${attCount > 0 ? ` <span class="row-multi" title="${attCount} 个附件">${util.icon("paperclip", 10)} ${attCount}</span>` : ""}</div>
+                    <div class="row-name">${esc.html(app.name)}${vc > 1 ? ` <span class="row-multi">${vc} 版</span>` : ""}${attCount > 0 ? ` <span class="row-multi" title="${attCount} 个附件">${util.icon("paperclip", 10)} ${attCount}</span>` : ""}${missing ? ` <span class="row-multi missing" title="未上架">未上架</span>` : ""}</div>
                     <div class="row-desc">${esc.html(app.desc || "")}</div>
                 </div>
                 <div class="row-col row-platform">
@@ -115,9 +120,9 @@
                 <div class="row-col row-size">${rec ? esc.html(rec.size || "-") : "-"}</div>
                 <div class="row-col row-used">${user.usedCount(app) ? user.usedCount(app) + " 次" : "-"}</div>
                 <div class="row-actions">
-                    ${rec && rec.downloadUrl
+                    ${rec && rec.downloadUrl && !missing
                         ? `<a href="${esc.attr(rec.downloadUrl)}" class="row-dl" data-action="dl" title="下载 v${esc.attr(rec.version)}">${util.icon("download", 16)}</a>`
-                        : ""}
+                        : (missing ? `<span class="row-dl disabled" title="未上架">${util.icon("download", 16)}</span>` : "")}
                 </div>
             </div>`;
         }).join("");

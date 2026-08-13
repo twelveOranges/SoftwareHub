@@ -16,9 +16,3 @@ services:
       - ./icons:/usr/share/nginx/html/icons:ro
       # Live-edit the catalog data without rebuild
       - ./data:/usr/share/nginx/html/data:ro
-    healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/"]
-      interval: 30s
-      timeout: 5s
-      retries: 3
-      start_period: 5s
