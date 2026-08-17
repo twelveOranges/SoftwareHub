@@ -256,14 +256,6 @@ img { max-width: 100%; display: block; }
     flex-shrink: 0;
 }
 
-.logo-icon {
-    width: 22px;
-    height: 22px;
-    color: var(--primary);
-}
-
-.logo-icon svg { width: 22px; height: 22px; }
-
 .nav {
     display: flex;
     gap: 2px;
@@ -684,7 +676,7 @@ img { max-width: 100%; display: block; }
     background: var(--bg-white);
     border-radius: var(--radius-lg);
     padding: 18px 14px 14px;
-    text-align: center;
+    text-align: left;
     box-shadow: var(--shadow-sm);
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -735,6 +727,14 @@ img { max-width: 100%; display: block; }
 }
 
 .app-badge.attach svg { width: 10px; height: 10px; }
+
+/* File-size badge on cards */
+.app-badge.size {
+    background: rgba(var(--primary-rgb), 0.08);
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+}
 
 /* Attachment list inside modal */
 .attachment-list {
@@ -868,19 +868,23 @@ img { max-width: 100%; display: block; }
 .app-desc {
     font-size: 11px;
     color: var(--text-muted);
-    height: 28px;
+    /* Height derived from line-height × line count so descenders (g/y/p) aren't clipped */
+    min-height: calc(1.5em * 3);
     display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    line-height: 1.4;
+    text-overflow: ellipsis;
+    line-height: 1.5;
     margin-bottom: 8px;
+    text-align: left;
+    word-break: break-word;
 }
 
 .app-meta {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 4px;
     font-size: 10px;
     color: var(--text-muted);
@@ -898,12 +902,15 @@ img { max-width: 100%; display: block; }
 
 .app-badge.mac { background: rgba(46, 125, 50, 0.14); color: #2e7d32; }
 .app-badge.win { background: rgba(21, 101, 192, 0.14); color: #1565c0; }
+.app-badge.linux { background: rgba(221, 75, 30, 0.14); color: #dd4b1e; }
 .app-badge.android { background: rgba(63, 162, 76, 0.14); color: #3fa24c; }
 
 :root[data-theme="deep"] .app-badge.mac,
 :root[data-theme="dark"] .app-badge.mac { background: rgba(134, 239, 172, 0.15); color: #86efac; }
 :root[data-theme="deep"] .app-badge.win,
 :root[data-theme="dark"] .app-badge.win { background: rgba(147, 197, 253, 0.15); color: #93c5fd; }
+:root[data-theme="deep"] .app-badge.linux,
+:root[data-theme="dark"] .app-badge.linux { background: rgba(253, 186, 116, 0.15); color: #fdba74; }
 :root[data-theme="deep"] .app-badge.android,
 :root[data-theme="dark"] .app-badge.android { background: rgba(134, 239, 172, 0.15); color: #86efac; }
 
@@ -1273,6 +1280,49 @@ img { max-width: 100%; display: block; }
     padding: 1px 6px;
     background: var(--bg-white);
     border-radius: 4px;
+    /* Default: single line with ellipsis so long / multi-line notes don't
+       break the version row layout. Users can click to expand. */
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    max-width: 260px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+}
+
+.version-note.expandable {
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.version-note.expandable:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.version-note-caret {
+    font-size: 9px;
+    opacity: 0.7;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+}
+
+.version-note.expanded {
+    display: block;
+    max-width: 100%;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin-top: 4px;
+    padding: 8px 10px;
+    line-height: 1.55;
+    background: var(--bg-soft);
+    border-left: 2px solid var(--primary);
+}
+
+.version-note.expanded .version-note-caret {
+    transform: rotate(90deg);
 }
 
 .version-meta {

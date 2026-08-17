@@ -33,9 +33,10 @@
             all: "全部",
             mac: "Mac",
             win: "Windows",
+            linux: "Linux",
             android: "Android"
         },
-        VALID_PLATFORMS: ["mac", "win", "android"],
+        VALID_PLATFORMS: ["mac", "win", "linux", "android"],
         FALLBACK_ICON: "icons/_fallback.svg"
     };
 

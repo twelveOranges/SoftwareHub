@@ -16,6 +16,7 @@
     const PLATFORM_FILES = [
         { platform: "mac",     url: "data/mac.yaml"     },
         { platform: "win",     url: "data/win.yaml"     },
+        { platform: "linux",   url: "data/linux.yaml"   },
         { platform: "android", url: "data/android.yaml" }
     ];
 

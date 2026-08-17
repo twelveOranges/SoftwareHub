@@ -87,6 +87,7 @@
                 <div class="app-meta">
                     <span class="app-badge ${app.platform}">${consts.PLATFORM_LABELS[app.platform] || app.platform}</span>
                     ${rec ? `<span class="app-badge">v${esc.html(rec.version)}</span>` : ""}
+                    ${rec && rec.size && !missing ? `<span class="app-badge size" title="文件大小">${esc.html(rec.size)}</span>` : ""}
                     ${vc > 1 ? `<span class="app-badge multi" title="共 ${vc} 个版本">${vc} 版</span>` : ""}
                     ${attCount > 0 ? `<span class="app-badge attach" title="${attCount} 个附件">${util.icon("paperclip", 10)} ${attCount}</span>` : ""}
                     ${missing ? `<span class="app-badge missing" title="未上架">未上架</span>` : ""}
@@ -133,6 +134,7 @@
         const all = window.APPS;
         $("statEssentialMac").textContent     = all.filter(a => a.platform === "mac"     && user.isEssential(a)).length;
         $("statEssentialWin").textContent     = all.filter(a => a.platform === "win"     && user.isEssential(a)).length;
+        $("statEssentialLinux").textContent   = all.filter(a => a.platform === "linux"   && user.isEssential(a)).length;
         $("statEssentialAndroid").textContent = all.filter(a => a.platform === "android" && user.isEssential(a)).length;
 
         document.querySelectorAll("[data-platform-stat]").forEach(el => {

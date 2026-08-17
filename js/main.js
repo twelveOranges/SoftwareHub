@@ -28,6 +28,7 @@
 
         // Wire all event listeners now that data is available
         App.view.apply(App.state.view);   // also triggers first render
+        App.view.bind();
         App.router.bind();
         App.detail.bind();
         App.attachPicker.bind();

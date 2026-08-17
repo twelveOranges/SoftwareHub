@@ -79,6 +79,10 @@
         }
         return app.versions.map((v, idx) => {
             const missing = v.available === false;
+            // A version note may span multiple lines (yaml `note: |` / `note: >`).
+            // Detect that so we can hint the user that clicking will expand.
+            const noteText = v.note || "";
+            const isLongNote = /\n/.test(noteText) || noteText.length > 40;
             return `
             <div class="version-row${idx === 0 ? " version-recommended" : ""}${missing ? " version-missing" : ""}" data-version="${esc.attr(v.version)}">
                 <div class="version-info">
@@ -86,7 +90,7 @@
                         <span class="version-tag">v${esc.html(v.version)}</span>
                         ${idx === 0 ? `<span class="version-badge-rec">推荐</span>` : ""}
                         ${missing ? `<span class="version-badge-missing">未上架</span>` : ""}
-                        ${v.note ? `<span class="version-note">${esc.html(v.note)}</span>` : ""}
+                        ${noteText ? `<span class="version-note${isLongNote ? " expandable" : ""}" data-action="toggle-note" title="${isLongNote ? "点击展开 / 折叠" : ""}">${esc.html(noteText)}${isLongNote ? `<span class="version-note-caret">▸</span>` : ""}</span>` : ""}
                     </div>
                     <div class="version-meta">
                         <span>${util.icon("boxOpen", 12)} ${esc.html(v.size || "-")}</span>
@@ -146,6 +150,13 @@
 
         // Download click inside version list → bump usage stats
         dom.modalVersionList.addEventListener("click", e => {
+            // Handle note expand/collapse first (never bubbles into download)
+            const noteEl = e.target.closest("[data-action='toggle-note']");
+            if (noteEl && noteEl.classList.contains("expandable")) {
+                noteEl.classList.toggle("expanded");
+                return;
+            }
+
             const a = e.target.closest("[data-action='dl-version']");
             if (!a || !currentApp) return;
             user.bumpUsed(currentApp);

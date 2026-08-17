@@ -1,0 +1,157 @@
+# Linux software catalog. See data/mac.yaml for schema documentation.
+# NOTE: File sizes and modification dates are auto-detected at runtime.
+# Suggested naming: downloadUrl paths under /downloads/linux/…
+#                   icons under icons/linux/…
+
+- name: VS Code
+  icon: icons/linux/vscode.png
+  desc: 开源代码编辑器
+  category: dev
+  essential: true
+  versions:
+    - version: "1.85"
+      downloadUrl: /downloads/linux/vscode-1.85.deb
+      note: Debian / Ubuntu
+    - version: "1.85-rpm"
+      downloadUrl: /downloads/linux/vscode-1.85.rpm
+      note: Fedora / RHEL
+
+- name: IntelliJ IDEA
+  icon: icons/linux/idea.png
+  desc: Java 开发首选 IDE
+  category: dev
+  essential: true
+  versions:
+    - version: "2024.1"
+      downloadUrl: /downloads/linux/idea-2024.1.tar.gz
+
+- name: Docker
+  icon: icons/linux/docker.png
+  desc: 容器化开发与部署
+  category: dev
+  versions:
+    - version: "latest"
+      downloadUrl: /downloads/linux/docker.tar.gz
+      note: 建议直接用发行版包管理器安装
+
+- name: Postman
+  icon: icons/linux/postman.png
+  desc: API 调试与协作
+  category: dev
+  versions:
+    - version: "10.24"
+      downloadUrl: /downloads/linux/postman.tar.gz
+
+- name: Chrome
+  icon: icons/linux/chrome.png
+  desc: 谷歌浏览器
+  category: browser
+  essential: true
+  versions:
+    - version: "125.0"
+      downloadUrl: /downloads/linux/chrome-125.deb
+    - version: "125.0-rpm"
+      downloadUrl: /downloads/linux/chrome-125.rpm
+
+- name: Firefox
+  icon: icons/linux/firefox.png
+  desc: 开源浏览器
+  category: browser
+  versions:
+    - version: "latest"
+      downloadUrl: /downloads/linux/firefox.tar.bz2
+
+- name: Telegram
+  icon: icons/linux/telegram.png
+  desc: 加密即时通讯
+  category: chat
+  versions:
+    - version: "4.16"
+      downloadUrl: /downloads/linux/telegram.tar.xz
+
+- name: 微信 (Linux)
+  icon: icons/linux/wechat.png
+  desc: Linux 原生微信
+  category: chat
+  versions:
+    - version: "1.0"
+      downloadUrl: /downloads/linux/wechat.deb
+
+- name: WPS Office
+  icon: icons/linux/wps.png
+  desc: 办公套件
+  category: office
+  essential: true
+  versions:
+    - version: "2023"
+      downloadUrl: /downloads/linux/wps-2023.deb
+
+- name: Obsidian
+  icon: icons/linux/obsidian.png
+  desc: 本地优先的双链笔记
+  category: office
+  essential: true
+  note: "同步库: NAS/notes"
+  versions:
+    - version: "1.5"
+      downloadUrl: /downloads/linux/obsidian.AppImage
+  attachments:
+    - name: 主题包
+      desc: Minimal / Things / Blue Topaz 等
+      downloadUrl: /downloads/linux/extras/obsidian-themes.zip
+      installPath: ~/.config/obsidian/themes
+    - name: 社区插件集
+      desc: Dataview / Templater / Excalidraw 等
+      downloadUrl: /downloads/linux/extras/obsidian-plugins.zip
+      installPath: ~/.config/obsidian/plugins
+
+- name: OBS Studio
+  icon: icons/linux/obs.png
+  desc: 开源直播与录屏
+  category: video
+  versions:
+    - version: "30.0"
+      downloadUrl: /downloads/linux/obs.tar.xz
+
+- name: VLC
+  icon: icons/linux/vlc.png
+  desc: 全能视频播放器
+  category: video
+  essential: true
+  versions:
+    - version: "3.0"
+      downloadUrl: /downloads/linux/vlc.tar.xz
+
+- name: GIMP
+  icon: icons/linux/gimp.png
+  desc: 开源图像处理
+  category: design
+  versions:
+    - version: "2.10"
+      downloadUrl: /downloads/linux/gimp.AppImage
+
+- name: Inkscape
+  icon: icons/linux/inkscape.png
+  desc: 开源矢量绘图
+  category: design
+  versions:
+    - version: "1.3"
+      downloadUrl: /downloads/linux/inkscape.AppImage
+
+- name: Steam
+  icon: icons/linux/steam.png
+  desc: PC 游戏平台
+  category: game
+  versions:
+    - version: "latest"
+      downloadUrl: /downloads/linux/steam.deb
+
+- name: htop
+  icon: icons/linux/htop.png
+  desc: 终端交互式进程查看器
+  category: system
+  essential: true
+  versions:
+    - version: "3.3"
+      downloadUrl: /downloads/linux/htop.tar.gz
+      note: 建议直接用包管理器 apt/dnf install
